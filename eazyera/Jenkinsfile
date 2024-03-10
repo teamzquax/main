@@ -8,14 +8,10 @@ pipeline {
             }
         }
         
-        stage('Install Dependencies') {
-            steps {
-                sh 'npm install'
-            }
-        }
-        
         stage('Build') {
             steps {
+                sh 'pwd'
+                sh 'ls -al'
                 sh 'ng build'
             }
         }
