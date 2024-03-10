@@ -1,0 +1,61 @@
+pipeline {
+    agent any
+
+    environment {
+        // Define environment variables if needed
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                // Check out the source code from GitHub
+                checkout scm
+            }
+        }
+        
+        stage('Install Dependencies') {
+            steps {
+                script {
+                    // Use the Node.js installation provided by the Jenkins NodeJS plugin
+                    sh 'npm install'
+                }
+            }
+        }
+        
+        stage('Build') {
+            steps {
+                script {
+                    // Build the Angular project
+                    sh 'ng build'
+                }
+            }
+        }
+        
+        stage('Unit Tests') {
+            steps {
+                script {
+                    // Run unit tests
+                    sh 'ng test --watch=false --code-coverage'
+                }
+            }
+        }
+        
+        stage('E2E Tests') {
+            steps {
+                script {
+                    // Run end-to-end tests
+                    // Ensure you have a package for e2e testing before running this
+                    sh 'ng e2e'
+                }
+            }
+        }
+        
+        // Add more stages if needed, e.g., for deployment
+    }
+    
+    post {
+        always {
+            // Cleanup, archiving artifacts, or publishing results can be done here
+        }
+    }
+}
