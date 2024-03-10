@@ -7,7 +7,7 @@ pipeline {
                 checkout scm
             }
         }
-        
+
         stage('Build') {
             steps {
                 dir('eazyera') { // Change to the Angular project directory
@@ -17,7 +17,7 @@ pipeline {
                 }
             }
         }
-        
+
         stage('Unit Tests') {
             steps {
                 dir('eazyera') { // Change to the Angular project directory
@@ -27,7 +27,7 @@ pipeline {
                 }
             }
         }
-        
+
         stage('E2E Tests') {
             steps {
                 dir('eazyera') { // Change to the Angular project directory
@@ -37,13 +37,16 @@ pipeline {
                 }
             }
         }
-        
+
         // Add more stages if needed, e.g., for deployment
     }
-    
+
     post {
         always {
-            // Cleanup, archiving artifacts, or publishing results can be done here
+            // Example action: clean up workspace
+            cleanWs()
+            // Or simply echo a message
+            echo 'Pipeline execution is complete.'
         }
     }
 }
